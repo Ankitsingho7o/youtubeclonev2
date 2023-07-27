@@ -1,12 +1,23 @@
 import { useState } from "react";
 import { AppContext } from "./context/contextApi";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import  HeaderComp  from "./componenets/header";
+import FeedComp from "./componenets/feed";
 
 function App() {
   return (
     <>
       <AppContext>
-   
-        <h1 className="text-2xl text-pink-700">Hello World</h1>
+        <BrowserRouter>
+        <div className="flex flex-col h-full">
+          <HeaderComp/>
+          <Routes>
+            <Route path="/"  exact  element={<FeedComp/>}></Route>
+            {/*<Route path="/searchResults/:searchQuery" element={}></Route>
+            <Route path="/video/:id" element={}></Route> */}
+          </Routes>
+          </div>
+        </BrowserRouter>
       </AppContext>
     </>
   );
