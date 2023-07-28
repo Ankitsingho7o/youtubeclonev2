@@ -4,7 +4,7 @@ export  const Context = createContext()
 
 export const AppContext= ({children})=>{
     const[loading, setLoading] = useState(false)
-    const[search, setSearchResults] = useState(false)
+    const[searchResults, setsearchResults] = useState(false)
     const[selectCategories, setSelectCategories] = useState("NEW")
     const[mobileMenu, setMobileMenu] = useState(false)
 
@@ -17,7 +17,7 @@ export const AppContext= ({children})=>{
         setLoading(true)
         fetchDataFromApi(`search/?q=${query}`).then(({contents})=>{
             console.log(contents);
-            setSearchResults(contents)
+            setsearchResults(contents)
             setLoading(false)
         })
 
@@ -28,8 +28,8 @@ export const AppContext= ({children})=>{
         <Context.Provider value={{
             loading,
             setLoading,
-            search,
-            setSearchResults,
+            searchResults,
+            setsearchResults,
             selectCategories,
             setSelectCategories,
             mobileMenu,

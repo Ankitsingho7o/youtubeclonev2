@@ -23,7 +23,7 @@ switch (type) {
   }
 
   return (
-    <div className={`md:block w-[240px] overflow-y-auto h-full py-4 bg-black absolute md:relative z-10 translate-x-[-240px] md:translate-x-0 transition-all ${
+    <div className={`md:block w-[240px] md:mt-[70px] overflow-y-auto  h-auto py-4 bg-black absolute md:fixed md:top-0 md:bottom-0 md:overflow-y-scroll z-10 translate-x-[-240px] md:translate-x-0 transition-all ${
       mobileMenu ? "translate-x-0" : ""
   }`}>
       <div className="flex px-5 flex-col">
@@ -48,6 +48,8 @@ switch (type) {
                 <div className="text-white/[0.5] text-[12px]">
                     Clone by: TiTAN
                 </div>
+            
+               
             </div>
         </div>
 
