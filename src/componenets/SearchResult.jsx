@@ -1,6 +1,6 @@
 import React from 'react'
 
-function FeedComp() {
+const SearchResult = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function FeedComp() {
   )
 }
 
-export default FeedComp
+export default SearchResult

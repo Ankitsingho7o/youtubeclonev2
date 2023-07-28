@@ -9,19 +9,19 @@ export const AppContext= ({children})=>{
     const[mobileMenu, setMobileMenu] = useState(false)
 
 
-//     useEffect(()=>{
-//    fetchSelectedCateogryData(selectCategories)
-//     },[selectCategories])
+    useEffect(()=>{
+   fetchSelectedCateogryData(selectCategories)
+    },[selectCategories])
 
-//     const fetchSelectedCateogryData =(query)=>{
-//         setLoading(true)
-//         fetchDataFromApi(`search/?q=${query}`).then(({contents})=>{
-//             console.log(contents);
-//             setSearchResults(contents)
-//             setLoading(false)
-//         })
+    const fetchSelectedCateogryData =(query)=>{
+        setLoading(true)
+        fetchDataFromApi(`search/?q=${query}`).then(({contents})=>{
+            console.log(contents);
+            setSearchResults(contents)
+            setLoading(false)
+        })
 
-//     }
+    }
 
 
     return(
