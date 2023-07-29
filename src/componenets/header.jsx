@@ -17,7 +17,7 @@ function HeaderComp() {
 
   const navigate = useNavigate();
 
-  const searchQueryHanler = (event) => {
+  const searchQueryHandler = (event) => {
     if (
       event?.key === "Enter" ||
       (event === "searchButton" && searchQuery?.length > 0)
@@ -28,6 +28,10 @@ function HeaderComp() {
   const mobileMenuToggle = () => {
     setMobileMenu(!mobileMenu);
   };
+  function handelChange(e){
+
+    setSearchQuery(e.target.value)
+  }
   const { pathname } = useLocation();
   const pageName = pathname?.split("/").filter(Boolean)?.[0];
   // console.log(pageName);
@@ -61,8 +65,8 @@ function HeaderComp() {
           <input
             type="text"
             className="bg-transparent outline-none text-white pr-5 pl-5 md:pl-0 w-44 md:group-focus-within:pl-0 md:w-64 lg:w-[500px]"
-            onchage={(e) => setSearchQuery(e.target.value)}
-            onKeyUp={searchQueryHanler}
+            onChange={handelChange}
+            onKeyUp={searchQueryHandler}
             value={searchQuery}
           />
         </div>

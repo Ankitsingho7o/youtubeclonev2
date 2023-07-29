@@ -5,7 +5,7 @@ import LeftNav from "../componenets/LeftNav";
 import VideoCard from "./VideoCard";
 function FeedComp() {
   const { loading, searchResults } = useContext(Context);
-
+   console.log(searchResults);
   useEffect(() => {
     document.getElementById("root").classList.remove("custom-h");
   });
