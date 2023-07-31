@@ -4,12 +4,11 @@ import { fetchDataFromApi } from "../utils/api";
 import { Context } from "../context/contextApi";
 import LeftNav from "../componenets/LeftNav";
 import VideoCard from "./VideoCard";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 const ChannelDetails = () => {
   const [channelDetials, setChannelDetails] = useState(false);
   const [channelVideos, setChannelVideos] = useState(false);
-  const [desktopimgurl, setDesktopImgUrl] = useState(false);
-  const [mobileimgurl, setMobileImgUrl] = useState(false);
   const { id } = useParams();
   const { setLoading } = useContext(Context);
 
@@ -20,38 +19,32 @@ const ChannelDetails = () => {
 
   // const handelRef = useRef()
 
-    const handelBanner =()=>{
-      const screenWidth = window.innerWidth;
-
+  const handelBanner = () => {
+    const screenWidth = window.innerWidth;
+    console.log(screenWidth);
     if (screenWidth < 450) {
-      return (
-        channelDetials?.banner?.mobile[0]?.url
-      );
+      return channelDetials?.banner?.mobile[3]?.url;
     } else {
-      return (
-     channelDetials?.banner?.desktop[0]?.url
-      );
+      return channelDetials?.banner?.desktop[3]?.url;
     }
-    }
+  };
   // useEffect(() => {
   //    handelBanner();
-  //   const handleWindowResize = () => {
-  //     console.log(window.innerWidth);
-  //     console.log(handelRef.current.backgroundImage);
-  //     if(window.innerWidth<450){
-  //       handelRef.current.backgroundImage = `url("${channelDetials?.banner?.desktop[0].url}")`
-  //     }else{
-  //       handelRef.current.backgroundImage = `url("${channelDetials?.banner?.desktop[0].url}")`
+  //   // const handleWindowResize = () => {
+  //   //   console.log(window.innerWidth);
+  //   //   console.log(handelRef.current.backgroundImage);
+  //   //   if(window.innerWidth<450){
+  //   //     handelRef.current.backgroundImage = `url("${channelDetials?.banner?.desktop[0].url}")`
+  //   //   }else{
+  //   //     handelRef.current.backgroundImage = `url("${channelDetials?.banner?.desktop[0].url}")`
 
-
-  //     }
+  //   //   }
   //     // setURL({channelDetials?.banner?.window.innerWidth<450?".mobile":".desktop"[3]?.url});
-  //   };
 
-  //   window.addEventListener("resize", handleWindowResize);
+  //   window.addEventListener("resize", handelBanner);
 
   //   return () => {
-  //     window.removeEventListener("resize", handleWindowResize);
+  //     window.removeEventListener("resize", handelBanner);
   //   };
   // },[]);
 
@@ -60,9 +53,9 @@ const ChannelDetails = () => {
     fetchDataFromApi(`channel/details/?id=${id}`).then((res) => {
       console.log(res);
       setChannelDetails(res);
-      setDesktopImgUrl(true).
-
-      setMobileImgUrl(channelDetials?.banner?.mobile[0].url)
+      // setDesktopImgUrl(true).setMobileImgUrl(
+      //   channelDetials?.banner?.mobile[2].url
+      // );
       setLoading(false);
     });
   };
@@ -80,26 +73,46 @@ const ChannelDetails = () => {
       <LeftNav />
       <div className="flex flex-col md:w-[calc(100%-240px)]  ">
         <div className="w-full bg-black">
-          <div 
-            className={`md:h-[250px] m-2 h-[200px] md:p-3 p-2 object-cover bg-center bg-cover `}
-            style={{ backgroundImage: `url(${channelDetials && handelBanner()})` }}
+          <div
+            className={`md:h-[250px] m-2 h-[200px] md:p-3 p-2 object-cover bg-center bg-contain md:bg-cover bg-no-repeat `}
+            style={{
+              backgroundImage: `url(${channelDetials && handelBanner()})`,
+            }}
           >
             {/* <img src={desktopimgurl && `${channelDetials?.banner?.desktop[0].url}`} alt="" /> */}
           </div>
-         <div className="w-full flex">
-            <div>
-              <img src="" alt="" />
+          <div className="w-full flex m-6 items-center justify-center">
+            <div className="flex h-40 w-40 rounded-full overflow-hidden">
+              {channelDetials && (
+                <img
+                  className="h-full w-full object-cover"
+                  src={channelDetials?.avatar[2]?.url}
+                />
+              )}
             </div>
-            <div>
-              <h1>
-
+            <div className="m-4 flex flex-col gap-2">
+              <h1 className="text-white text-4xl font-bold">
+                {channelDetials?.title}
+                {channelDetials && channelDetials?.badges[0]?.type === "VERIFIED_CHANNEL" && (
+                  <BsFillCheckCircleFill className="text-white/[0.5] text-xl ml-1 inline-block" />
+                )}
               </h1>
-              <h2></h2>
-
-              <p></p>
+              <div className="flex gap-3 ">
+                <h2 className="text-gray-600 text-2xl">
+                  {channelDetials?.username}
+                </h2>
+                <p className="text-gray-600 text-2xl">
+                  {channelDetials?.stats?.subscribersText}
+                </p>
+                <p className="text-gray-600 text-2xl">
+                  {channelDetials?.stats?.videosText}
+                </p>
+              </div>
+              <h3 className="text-gray-400 text-xl line-clamp-2">
+                {channelDetials?.description}
+              </h3>
             </div>
-         </div>
-
+          </div>
         </div>
         <div className="grow h-full  bg-black" id="feed">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5">
