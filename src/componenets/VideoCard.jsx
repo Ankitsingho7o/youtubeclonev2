@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import VideoLength from "../shared/videoLength";
 
-const VideoCard = ({ video}) => {
-  // console.log(video);
+const VideoCard = ({video, authorDetail}) => {
+  // console.log(authorDetail);
   return (
     <Link to={`/video/${video?.videoId}`}>
       <div className="flex flex-col mb-8">
@@ -22,7 +22,8 @@ const VideoCard = ({ video}) => {
               <div className="flex h-9 w-9 rounded-full overflow-hidden">
                 <img
                   className="h-full w-full object-cover"
-                  src={video?.author?.avatar[0]?.url}
+                  
+                  src={authorDetail? authorDetail.avatar[0].url : video?.author?.avatar[0].url}
                 />
               </div>
             </Link>

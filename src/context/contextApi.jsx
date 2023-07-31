@@ -18,7 +18,7 @@ export const AppContext= ({children})=>{
     const fetchSelectedCateogryData=(query)=>{
         setLoading(true)
         fetchDataFromApi(`search/?q=${query}`).then((data)=>{
-            console.log(data);
+            // console.log(data);
             // setsearchResults(prevResults =>{
             //     return [...data.contents]
             // })
