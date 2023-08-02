@@ -5,6 +5,7 @@ export  const Context = createContext()
 export const AppContext= ({children})=>{
     const[loading, setLoading] = useState(false)
     const[searchResults, setsearchResults] = useState([])
+    const[pageNum, setPageNum] = useState(" ")
     const[checking, setChecking]= useState(false)
     const[selectCategories, setSelectCategories] = useState("NEW")
 
@@ -12,17 +13,17 @@ export const AppContext= ({children})=>{
 
 
     useEffect(()=>{
-   fetchSelectedCateogryData(selectCategories)
-    },[selectCategories])
+   fetchSelectedCateogryData(selectCategories,pageNum)
+    },[selectCategories,pageNum])
 
-    const fetchSelectedCateogryData=(query)=>{
+    const fetchSelectedCateogryData=(query,pageNum=" ")=>{
         setLoading(true)
-        fetchDataFromApi(`search/?q=${query}`).then((data)=>{
+        fetchDataFromApi(`search?part=snippet&q=${query}${pageNum?`&pageToken=${pageNum}`: ' '}`).then((data)=>{
             // console.log(data);
             // setsearchResults(prevResults =>{
             //     return [...data.contents]
             // })
-            setsearchResults(data.contents)
+            setsearchResults(data)
             setChecking(true)
             setLoading(false)
         })
@@ -40,7 +41,8 @@ export const AppContext= ({children})=>{
             setSelectCategories,
             mobileMenu,
             setMobileMenu,
-            checking
+            checking,
+            setPageNum
    
         }}>
     

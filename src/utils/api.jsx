@@ -3,10 +3,12 @@ import axios from "axios";
 const BASE_URL = 'https://youtube138.p.rapidapi.com'
 const options = {
 
-    params: { hl: 'en', gl: 'US' },
+    params: { regionCode: 'IN',
+    maxResults: '50', 
+    },
     headers: {
-        'X-RapidAPI-Key': '482ff4ca4cmsh8119e95043d1cd6p1ccab5jsnaa2391fa66a3',
-        'X-RapidAPI-Host': 'youtube138.p.rapidapi.com'
+        'X-RapidAPI-Key': '1126d9bfc4msh7dbfdf30c08d2d4p1026e8jsna50de9bb9750',
+        'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
     }
 };
 

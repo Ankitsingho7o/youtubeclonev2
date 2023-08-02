@@ -4,16 +4,18 @@ import { useNavigate } from "react-router-dom";
 import categories from "../utils/constant";
 import { Context } from "../context/contextApi";
 import LeftNavMenuItem from "./LeftNavMenuItem";
-const LeftNav = () => {
+const LeftNav = ({ cateogryUpdate, comingfromDiffCat }) => {
   const { selectCategories, setSelectCategories, mobileMenu } =
     useContext(Context);
   const navigate = useNavigate();
   const ClickHandler = (name, type) => {
-    console.log(name);
+    // console.log(name);
     switch (type) {
       case "category":
+        cateogryUpdate([]);
         return setSelectCategories(name);
       case "home":
+        cateogryUpdate([]);
         return setSelectCategories(name);
       case "menu":
         return false;

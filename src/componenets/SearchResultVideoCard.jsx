@@ -12,9 +12,9 @@ const SearchResultVideoCard = ({video}) => {
                 className="h-full w-full object-cover"
                 src={video?.thumbnails[0]?.url}
             />
-            {video?.lengthSeconds && (
+            {/* {video?.lengthSeconds && (
                 <VideoLength time={video?.lengthSeconds} />
-            )}
+            )} */}
         </div>
         <div className="flex flex-col ml-4 md:ml-6 mt-4 md:mt-0 overflow-hidden">
             <span className="text-lg md:text-2xl font-semibold line-clamp-2 text-white">

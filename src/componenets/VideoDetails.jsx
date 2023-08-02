@@ -25,7 +25,7 @@ const VideoDetails = () => {
 
   const fetchVideoDetails = () => {
     setLoading(true);
-    fetchDataFromApi(`video/details/?id=${id}`).then((res) => {
+    fetchDataFromApi(`videos?part=snippet,statistics,contentDetails&id=${id}`).then((res) => {
       // console.log(res);
       setVideo(res);
       setLoading(false);
@@ -33,7 +33,7 @@ const VideoDetails = () => {
   };
   const fetchRelatedVideos = () => {
     setLoading(true);
-    fetchDataFromApi(`video/related-contents/?id=${id}`).then((res) => {
+    fetchDataFromApi(`search?part=snippet,id&relatedToVideoId=${id}`).then((res) => {
       // console.log(res);
       setRelatedVideos(res);
       setLoading(false);
@@ -41,8 +41,8 @@ const VideoDetails = () => {
   };
   const fetchVideoComments = () => {
     setLoading(true);
-    fetchDataFromApi(`video/comments/?id=${id}`).then((res) => {
-      // console.log(res);
+    fetchDataFromApi(`commentThreads?&part=snippet&videoId=${id}`).then((res) => {
+      console.log(res);
       setVideoComments(res);
       setLoading(false);
     });
@@ -63,46 +63,47 @@ const VideoDetails = () => {
             />
           </div>
           <div className="text-white font-bold text-sm md:text-xl mt-4 line-clamp-2">
-            {video?.title}
+            {video && (video?.items[0]?.snippet?.title)}
+
           </div>
           <div className="flex justify-between flex-col md:flex-row mt-4">
             <div className="flex">
-              <div className="flex items-start">
-                <div className="flex h-11 w-11 rounded-full overflow-hidden">
+              {/* <div className="flex items-start">
+                {/* <div className="flex h-11 w-11 rounded-full overflow-hidden">
                   <img
                     className="h-full w-full object-cover"
                     src={video?.author?.avatar[0]?.url}
                   />
-                </div>
-              </div>
-              <div className="flex flex-col ml-3">
-                <div className="text-white text-md font-semibold flex items-center">
-                  {video?.author?.title}
-                  {video?.author?.badges[0]?.type === "VERIFIED_CHANNEL" && (
+                </div> */}
+         
+              <div className="flex flex-col">
+                <div className="text-white text-2xl font-semibold flex">
+                  {video?.items[0]?.snippet?.channelTitle}
+                  {/* {video?.author?.badges[0]?.type === "VERIFIED_CHANNEL" && (
                     <BsFillCheckCircleFill className="text-white/[0.5] text-[12px] ml-1" />
-                  )}
+                  )} */}
                 </div>
-                <div className="text-white/[0.7] text-sm">
+                {/* <div className="text-white/[0.7] text-sm">
                   {video?.author?.stats?.subscribersText}
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex text-white mt-4 md:mt-0">
               <div className="flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15]">
                 <AiOutlineLike className="text-xl text-white mr-2" />
-                {`${abbreviateNumber(video?.stats?.views, 2)} Likes`}
+                {`${abbreviateNumber(video?.items[0]?.statistics?.likeCount, 2)} Likes`}
               </div>
               <div className="flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15] ml-4">
-                {`${abbreviateNumber(video?.stats?.views, 2)} Views`}
+                {`${abbreviateNumber(video?.items[0]?.statistics?.viewCount, 2)} Views`}
               </div>
             </div>
           </div>
-          {videoComments && <CommentComp videoComments={videoComments} />}
+          {videoComments && <CommentComp videoComments={videoComments} commentCount={video}/>}
         </div>
         <div className="flex flex-col py-6 px-4 overflow-y-auto lg:w-[350px] xl:w-[400px]">
-          {relatedVideos?.contents?.map((item, index) => {
-            if (item?.type !== "video") return false;
-            return <SuggestVideoCard key={index} video={item?.video} />;
+          {relatedVideos?.items?.map((item, index) => {
+            if (item?.id?.kind !== "youtube#video") return false;
+            return <SuggestVideoCard key={index} video={item} />;
           })}
         </div>
       </div>

@@ -69,7 +69,7 @@ const ChannelDetails = () => {
   };
 
   return (
-    <div className="flex flex-row  h-auto">
+    <div className="flex flex-row  h-auto ">
       <LeftNav />
       <div className="flex flex-col md:w-[calc(100%-240px)]  ">
         <div className="w-full bg-black">
@@ -81,34 +81,34 @@ const ChannelDetails = () => {
           >
             {/* <img src={desktopimgurl && `${channelDetials?.banner?.desktop[0].url}`} alt="" /> */}
           </div>
-          <div className="w-full flex m-6 items-center justify-center">
-            <div className="flex h-40 w-40 rounded-full overflow-hidden">
+          <div className="w-full flex flex-col md:flex-row  p-4 items-center justify-center ">
+            <div className=" h-full w-32 rounded-full overflow-hidden object-cover">
               {channelDetials && (
                 <img
-                  className="h-full w-full object-cover"
+                  className="h-full w-full"
                   src={channelDetials?.avatar[2]?.url}
                 />
               )}
             </div>
-            <div className="m-4 flex flex-col gap-2">
-              <h1 className="text-white text-4xl font-bold">
+            <div className="mt-3 md:m-4 md:ml-6 md:w-1/2 flex flex-col items-center md:items-start gap-2">
+              <h1 className="text-white text-2xl md:text-4xl font-bold">
                 {channelDetials?.title}
                 {channelDetials && channelDetials?.badges[0]?.type === "VERIFIED_CHANNEL" && (
                   <BsFillCheckCircleFill className="text-white/[0.5] text-xl ml-1 inline-block" />
                 )}
               </h1>
-              <div className="flex gap-3 ">
+              <div className="flex gap-3 md:flex-row flex-col">
                 <h2 className="text-gray-600 text-2xl">
                   {channelDetials?.username}
                 </h2>
-                <p className="text-gray-600 text-2xl">
+                <p className="text-gray-600 text-xl md:text-2xl">
                   {channelDetials?.stats?.subscribersText}
                 </p>
-                <p className="text-gray-600 text-2xl">
+                <p className="text-gray-600 text-xl md:text-2xl">
                   {channelDetials?.stats?.videosText}
                 </p>
               </div>
-              <h3 className="text-gray-400 text-xl line-clamp-2">
+              <h3 className="text-gray-400 text-base w-1/2 mr-6 md:mr-0 line-clamp-3">
                 {channelDetials?.description}
               </h3>
             </div>
