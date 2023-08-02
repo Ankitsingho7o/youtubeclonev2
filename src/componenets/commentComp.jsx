@@ -26,11 +26,12 @@ const CommentComp = ({ videoComments, commentCount: commCount }) => {
           commCount?.items[0]?.statistics?.commentCount,
           2
         )} Comments`}</h1>
-        {items.slice(0, 39).map((item) => {
+        {items?.slice(0, 39).map((item,index) => {
           return (
-            <div className="flex gap-4 w-full">
+            <div className="flex gap-4 w-full" key={index}>
               <div className="flex h-8 w-8 md:h-10 md:w-10 rounded-full  overflow-hidden">
                 <img
+                  loading="lazy"
                   className="h-full  object-cover "
                   src={
                     item?.snippet?.topLevelComment?.snippet
@@ -48,7 +49,7 @@ const CommentComp = ({ videoComments, commentCount: commCount }) => {
                   </h3>
                 </div>
 
-                <p className="text-white p-2 line-clamp-3">
+                <p className="text-white p-2 line-clamp-5">
                   {item?.snippet?.topLevelComment?.snippet?.textOriginal}
                 </p>
                 <div className="text-white">
@@ -58,7 +59,6 @@ const CommentComp = ({ videoComments, commentCount: commCount }) => {
                     2
                   )}`}
                   <span className="ml-6">
-                    
                     <TimeAgo
                       date={
                         item?.snippet?.topLevelComment?.snippet?.publishedAt

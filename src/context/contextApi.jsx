@@ -5,6 +5,7 @@ export  const Context = createContext()
 export const AppContext= ({children})=>{
     const[loading, setLoading] = useState(false)
     const[searchResults, setsearchResults] = useState([])
+    const [items, setItems] = useState([]);
     const[pageNum, setPageNum] = useState(" ")
     const[checking, setChecking]= useState(false)
     const[selectCategories, setSelectCategories] = useState("NEW")
@@ -42,7 +43,9 @@ export const AppContext= ({children})=>{
             mobileMenu,
             setMobileMenu,
             checking,
-            setPageNum
+            setPageNum,
+            items,
+            setItems
    
         }}>
     

@@ -3,12 +3,13 @@ import { abbreviateNumber } from "js-abbreviation-number";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
-const SuggestVideoCard = ({ video }) => {
+const SuggestVideoCard = ({ video}) => {
   return (
-    <Link to={`/video/${video?.id?.videoId}`}>
+    <Link to={`/video/${video?.id?.videoId}`} >
       <div className="flex mb-3">
         <div className="relative h-24 lg:h-20 xl:h-24 w-40 min-w-[168px] lg:w-32 lg:min-w-[128px] xl:w-40 xl:min-w-[168px] rounded-xl bg-slate-800 overflow-hidden">
           <img
+          loading="lazy"
             className="h-full w-full object-cover"
             src={video?.snippet?.thumbnails?.high?.url}
           />

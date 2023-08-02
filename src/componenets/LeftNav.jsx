@@ -4,18 +4,18 @@ import { useNavigate } from "react-router-dom";
 import categories from "../utils/constant";
 import { Context } from "../context/contextApi";
 import LeftNavMenuItem from "./LeftNavMenuItem";
-const LeftNav = ({ cateogryUpdate, comingfromDiffCat }) => {
-  const { selectCategories, setSelectCategories, mobileMenu } =
+const LeftNav = () => {
+  const { selectCategories, setSelectCategories, mobileMenu,setItems } =
     useContext(Context);
   const navigate = useNavigate();
   const ClickHandler = (name, type) => {
     // console.log(name);
     switch (type) {
       case "category":
-        cateogryUpdate([]);
+        setItems([]);
         return setSelectCategories(name);
       case "home":
-        cateogryUpdate([]);
+        setItems([]);
         return setSelectCategories(name);
       case "menu":
         return false;
@@ -32,10 +32,11 @@ const LeftNav = ({ cateogryUpdate, comingfromDiffCat }) => {
       }`}
     >
       <div className="flex px-5 flex-col">
-        {categories.map((item) => {
+        {categories.map((item,index) => {
           return (
             <>
               <LeftNavMenuItem
+              key={index}
                 text={item.type === "home" ? "Home" : item.name}
                 icon={item.icon}
                 action={() => {

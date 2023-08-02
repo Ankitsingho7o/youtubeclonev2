@@ -4,12 +4,11 @@ import { Context } from "../context/contextApi";
 import LeftNav from "../componenets/LeftNav";
 import VideoCard from "./VideoCard";
 function FeedComp() {
-  const { loading, searchResults, setPageNum } = useContext(Context);
+  const { loading, searchResults, setPageNum,items, setItems } = useContext(Context);
   // console.log(searchResults);
 
-  const [items, setItems] = useState([]);
-  const [comingFromDifferentCateogry, setComingFromDifferentCateogry] =
-    useState(false);
+ 
+
   useEffect(() => {
     document.getElementById("root").classList.remove("custom-h");
   });
@@ -48,8 +47,7 @@ function FeedComp() {
   return (
     <div className="flex flex-row h-[calc(100%-56px)] ">
       <LeftNav
-        cateogryUpdate={setItems}
-        comingfromDiffCat={setComingFromDifferentCateogry}
+     
       />
       <div
         className="grow w-[calc(100%-240px)] h-full overflow-y-auto bg-black"
@@ -59,7 +57,7 @@ function FeedComp() {
           {items &&
             items.map((item, index) => {
               // if (item.id.kind !== "youtube#video") return false;
-              console.log(items);
+              // console.log(items);
               if (item) {
                 if (items.length === index + 1) {
                   return (
