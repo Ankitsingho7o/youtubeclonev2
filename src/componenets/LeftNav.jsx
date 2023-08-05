@@ -12,10 +12,10 @@ const LeftNav = () => {
     // console.log(name);
     switch (type) {
       case "category":
-        setItems([]);
+
         return setSelectCategories(name);
       case "home":
-        setItems([]);
+       
         return setSelectCategories(name);
       case "menu":
         return false;

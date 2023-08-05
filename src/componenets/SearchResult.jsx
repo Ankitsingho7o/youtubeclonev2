@@ -16,18 +16,21 @@ const SearchResult = () => {
   const [searchResultItems, setSearchResultItems] = useState([]);
   const { searchQuery } = useParams();
   const { setLoading, loading } = useContext(Context);
-  const [pageNum, setPageNum] = useState(" ");
+  const [pageNum, setPageNum] = useState(false);
 
   useEffect(() => {
     setSearchResultItems([]);
     fetchSearchResults();
   }, [searchQuery]);
 
+
   useEffect(() => {
     if (pageNum) {
       fetchSearchResults();
     }
   }, [pageNum]);
+
+
   const fetchSearchResults = () => {
     setLoading(true);
     fetchDataFromApi(
@@ -35,7 +38,7 @@ const SearchResult = () => {
         pageNum ? `&pageToken=${pageNum}` : " "
       }`
     ).then((res) => {
-      console.log(res);
+      // console.log(res);
       setResult(res);
       setSearchResultItems((items) => {
         return [...new Set(items?.concat(res?.items))];
@@ -48,27 +51,27 @@ const SearchResult = () => {
 
   const lastVideoElement = useCallback(
     (node) => {
-      console.log("visible");
+      // console.log("visible");
       if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          // console.log(searchResults.nextPageToken);
+          // console.log(result.nextPageToken);
           setPageNum(result.nextPageToken);
         }
       });
 
       if (node) observer.current.observe(node);
     },
-    [loading]
+    [loading, result]
   );
 
   return (
-    <div className="flex flex-row h-[calc(100%-56px)]">
+    <div className="flex flex-row h-[calc(100%-56px)] overflow-hidden">
       <LeftNav />
       <div className="grow w-[calc(100%-240px)] h-full overflow-y-auto bg-black">
         <div className="grid grid-cols-1 gap-2 p-5">
-          {searchResultItems.map((item, index) => {
+          { searchResultItems && searchResultItems.map((item, index) => {
             if (item && item?.id.kind === "youtube#video") {
               if (searchResultItems.length === index + 1) {
                 return (

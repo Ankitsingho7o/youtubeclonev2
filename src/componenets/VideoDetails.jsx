@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiOutlineLike } from "react-icons/ai";
@@ -77,8 +77,8 @@ const VideoDetails = () => {
                 </div> */}
          
               <div className="flex flex-col">
-                <div className="text-white text-2xl font-semibold flex">
-                  {video?.items[0]?.snippet?.channelTitle}
+                <div className="text-white text-2xl font-semibold flex cursor-pointer">
+                <Link to={`/channel/${video?.items[0]?.snippet?.channelId}`}>    {video?.items[0]?.snippet?.channelTitle}</Link>
                   {/* {video?.author?.badges[0]?.type === "VERIFIED_CHANNEL" && (
                     <BsFillCheckCircleFill className="text-white/[0.5] text-[12px] ml-1" />
                   )} */}

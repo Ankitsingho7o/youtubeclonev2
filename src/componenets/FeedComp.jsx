@@ -6,9 +6,6 @@ import VideoCard from "./VideoCard";
 function FeedComp() {
   const { loading, searchResults, setPageNum,items, setItems } = useContext(Context);
   // console.log(searchResults);
-
- 
-
   useEffect(() => {
     document.getElementById("root").classList.remove("custom-h");
   });
@@ -16,8 +13,9 @@ function FeedComp() {
   useEffect(() => {
     if (items) {
       setItems((items) => {
-        return  [...new Set(items.concat(searchResults.items)) ];
+        return  [...new Set(items.concat(searchResults.items))];
       });
+      // setItems(searchResults.items)
     } else {
       // console.log(items);
       setItems(searchResults.items);
@@ -34,18 +32,18 @@ function FeedComp() {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          // console.log(searchResults.nextPageToken);
+          console.log(searchResults.nextPageToken);
           setPageNum(searchResults.nextPageToken);
         }
       });
 
       if (node) observer.current.observe(node);
     },
-    [loading]
+    [loading, searchResults]
   );
 
   return (
-    <div className="flex flex-row h-[calc(100%-56px)] ">
+    <div className="flex flex-row h-[calc(100%-56px)] overflow-hidden">
       <LeftNav
      
       />
@@ -62,13 +60,13 @@ function FeedComp() {
                 if (items.length === index + 1) {
                   return (
                     <VideoCard
-                      key={item?.id?.videoId}
+                      key={index}
                       video={item}
                       innerRef={lastVideoElement}
                     />
                   );
                 } else {
-                  return <VideoCard key={item?.id?.videoId} video={item} />;
+                  return <VideoCard key={index} video={item} />;
                 }
               }
             })}

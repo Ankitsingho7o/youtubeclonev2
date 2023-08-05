@@ -7,13 +7,17 @@ import { IoIosSearch } from "react-icons/io";
 import { RiVideoAddLine } from "react-icons/ri";
 import { FiBell } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
-
+import SearchSuggestionComp from "../componenets/SearchSuggestionComp";
 import { Context } from "../context/contextApi";
+import useDebounce from "../hooks/useDebounce";
 import Loader from "../shared/loader";
 
 function HeaderComp() {
   const [searchQuery, setSearchQuery] = useState("");
   const { loading, mobileMenu, setMobileMenu } = useContext(Context);
+  const [searchSuggestionVisiblity, setSearchSuggestionVisiblity] =
+    useState(false);
+  const debouncedValue = useDebounce(searchQuery);
 
   const navigate = useNavigate();
 
@@ -23,15 +27,13 @@ function HeaderComp() {
       (event === "searchButton" && searchQuery?.length > 0)
     ) {
       navigate(`/searchResult/${searchQuery}`);
-   
     }
   };
   const mobileMenuToggle = () => {
     setMobileMenu(!mobileMenu);
   };
-  function handelChange(e){
-
-    setSearchQuery(e.target.value)
+  function handelChange(e) {
+    setSearchQuery(e.target.value);
   }
   const { pathname } = useLocation();
   const pageName = pathname?.split("/").filter(Boolean)?.[0];
@@ -58,7 +60,7 @@ function HeaderComp() {
           <img src={ytLogoMobile} alt="" className="h-full md:hidden" />
         </Link>
       </div>
-      <div className="group flex items-center">
+      <div className="group flex items-center relative">
         <div className="flex h-8 md:h-10 md:ml-10 md:pl-5 border border-[#303030] rounded-l-3xl group-focus-within:border-blue-500 md:group-focus-within:ml-5 md:group-focus-within:pl-0">
           <div className="w-10 items-center justify-center hidden group-focus-within:md:flex">
             <IoIosSearch className="text-white text-xl" />
@@ -77,6 +79,17 @@ function HeaderComp() {
         >
           <IoIosSearch className="text-white text-xl" />
         </button>
+        <div
+          className={`w-5/6 h-100px bg-gray-800 absolute top-11 left-[10%] text-white rounded-lg p-3 ${
+            searchSuggestionVisiblity ? "" : "hidden"
+          }`}
+        >
+          <SearchSuggestionComp
+            setQuery={setSearchQuery}
+            suggestionVisiblity={setSearchSuggestionVisiblity}
+            query={debouncedValue}
+          />
+        </div>
       </div>
       <div className="flex items-center">
         <div className="hidden md:flex">

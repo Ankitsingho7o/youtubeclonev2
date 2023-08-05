@@ -6,7 +6,7 @@ import TimeAgo from "react-timeago";
 import VideoLength from "../shared/videoLength";
 
 const VideoCard = ({ video, innerRef }) => {
-  console.log(video);
+  // console.log(video);
   return (
     <Link to={`/video/${video?.id?.videoId}`} ref={innerRef}>
       <div className="flex flex-col mb-8">
