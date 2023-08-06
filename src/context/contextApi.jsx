@@ -11,10 +11,12 @@ export const AppContext = ({ children }) => {
   const [selectCategories, setSelectCategories] = useState("NEW");
 
   const [mobileMenu, setMobileMenu] = useState(false);
+  const[limitexcdeed, setLimitExcedeed]= useState(false)
+
 
   useEffect(() => {
     setItems([]);
-    // fetchSelectedCateogryData(selectCategories, pageNum);
+    fetchSelectedCateogryData(selectCategories, pageNum);
   }, [selectCategories]);
 
 
@@ -36,6 +38,10 @@ export const AppContext = ({ children }) => {
       setsearchResults(data);
       setChecking(true);
       setLoading(false);
+    }).catch((error)=>{
+      if(error.response.status){
+        setLimitExcedeed(true)
+}
     });
   };
 
@@ -54,6 +60,8 @@ export const AppContext = ({ children }) => {
         setPageNum,
         items,
         setItems,
+        limitexcdeed
+   
       }}
     >
       {children}

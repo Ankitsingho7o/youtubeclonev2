@@ -22,7 +22,7 @@ const ChannelDetails = () => {
   const { setLoading, loading } = useContext(Context);
   const [pageNum, setPageNum] = useState(false);
   
-  console.log(reult);
+  // console.log(reult);
 
   const obs = useRef();
 
@@ -38,7 +38,7 @@ const ChannelDetails = () => {
 
   useEffect(() => {
     if (pageNum) {
-      console.log("first");
+      // console.log("first");
       fetchChannelVideos();
     }
   }, [pageNum]);
@@ -83,8 +83,8 @@ const ChannelDetails = () => {
      if (observer.current) observer.current.disconnect();
      observer.current = new IntersectionObserver((entries) => {
        if (entries[0].isIntersecting) {
-          console.log("visible");
-          console.log(reult);
+          // console.log("visible");
+          // console.log(reult);
           // if (reult) {
           //   console.log(reult);
             setPageNum(reult);

@@ -5,19 +5,21 @@ import { useNavigate } from "react-router-dom";
 
 const SearchSuggestionComp = ({ suggestionVisiblity, query, setQuery }) => {
   const [data, setData] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   function handelSearch(suggestion) {
-    suggestionVisiblity(false)
+    suggestionVisiblity(false);
     setQuery("");
     navigate(`/searchResult/${suggestion}`);
   }
   useEffect(() => {
     if (query) {
-      console.log("here");
+      // console.log("here");
       fetchAutoComplete(`&q=${query}`).then((res) => {
-        console.log(res[1]);
-        setData(res[1]);
-        suggestionVisiblity(true);
+        // console.log(res[1]);
+        if (res[1].length >= 1) {
+          setData(res[1]);
+          suggestionVisiblity(true);
+        }
       });
     } else {
       suggestionVisiblity(false);

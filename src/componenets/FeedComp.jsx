@@ -4,11 +4,19 @@ import { Context } from "../context/contextApi";
 import LeftNav from "../componenets/LeftNav";
 import VideoCard from "./VideoCard";
 function FeedComp() {
-  const { loading, searchResults, setPageNum,items, setItems } = useContext(Context);
+  const { loading, searchResults, setPageNum,items, setItems,limitexcdeed } = useContext(Context);
   // console.log(searchResults);
   useEffect(() => {
     document.getElementById("root").classList.remove("custom-h");
   });
+
+
+  useEffect(()=>{
+    if(limitexcdeed){
+  
+      naviagte(`/limitexceeded`)
+    }
+   },[limitexcdeed])
 
   useEffect(() => {
     if (items) {
@@ -32,7 +40,7 @@ function FeedComp() {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          console.log(searchResults.nextPageToken);
+          // console.log(searchResults.nextPageToken);
           setPageNum(searchResults.nextPageToken);
         }
       });

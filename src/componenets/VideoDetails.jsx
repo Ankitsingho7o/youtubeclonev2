@@ -42,7 +42,7 @@ const VideoDetails = () => {
   const fetchVideoComments = () => {
     setLoading(true);
     fetchDataFromApi(`commentThreads?&part=snippet&videoId=${id}`).then((res) => {
-      console.log(res);
+      // console.log(res);
       setVideoComments(res);
       setLoading(false);
     });

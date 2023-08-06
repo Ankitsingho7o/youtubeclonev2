@@ -6,6 +6,8 @@ import FeedComp from "./componenets/FeedComp"
 import SearchResult from "./componenets/SearchResult";
 import VideoDetails from "./componenets/VideoDetails";
 import ChannelDetails from "./componenets/ChannelDetails";
+import LimitExccded from "./componenets/LimitExceeded";
+
 function App() {
   return (
     <>
@@ -24,6 +26,8 @@ function App() {
                 element={<ChannelDetails />}
               />
               <Route path="/video/:id" element={<VideoDetails />} />
+              <Route path="/limitexceeded" element={<LimitExccded />} />
+
             </Routes>
           </div>
         </BrowserRouter>
